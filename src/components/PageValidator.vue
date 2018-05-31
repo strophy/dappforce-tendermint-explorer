@@ -6,11 +6,9 @@ page(:title="`Node: ${getIp(validator)}`")
 
   part(title='ID')
     list-item(dt="Moniker" :dd="validator.node_info.moniker")
+    list-item(dt="ID" :dd="validator.node_info.id")
     list-item(dt="Listen Address" :dd="validator.node_info.listen_addr")
     list-item(dt="Start Date" :dd="validator.connection_status && readableDate(validator.connection_status.SendMonitor.Start)")
-
-  part(title='Pub Key')
-    list-item(dt="Value" :dd="validator.node_info.id")
 
   part(title='Network')
     list-item(dt="Network" :dd="validator.node_info.network")
