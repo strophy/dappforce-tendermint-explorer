@@ -61,3 +61,4 @@ yarn build
 
 # Then serve the `./dist` folder with the web server of your choice
 ```
+Added travis build
