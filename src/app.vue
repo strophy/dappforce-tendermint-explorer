@@ -45,6 +45,8 @@ export default {
 
 <style lang="stylus" src="./styles/app.styl"></style>
 <style lang="stylus">
+  .tm-page
+    overflow scroll
   .tm-part
     max-width 100%
   .tm-part-main
