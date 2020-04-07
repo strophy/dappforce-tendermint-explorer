@@ -400,7 +400,8 @@ if (typeof define === "function" && define.amd)
   define("cbor/cbor", obj);
 else if (typeof module !== "undefined" && module.exports)
   module.exports = obj;
+/* Causes error
 else if (!global.CBOR)
   global.CBOR = obj;
-
+*/
 })(this);
