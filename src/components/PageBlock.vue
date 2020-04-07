@@ -49,7 +49,7 @@ import axios from "axios"
 import createHash from "create-hash"
 import varint from "varint"
 import b64 from "base64-js"
-import { decodeBase64, decodeTx } from "../scripts/tx"
+import { decodeBase64, decodeTx, decodeST } from "../scripts/tx"
 import PartTxData from './PartTxData'
 import { TmListItem, TmPage, TmPart, TmToolBar } from "@tendermint/ui"
 
