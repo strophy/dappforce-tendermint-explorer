@@ -55,7 +55,7 @@ const routes = [
 ]
 
 export default new Router({
-  mode: "history",
+  mode: "hash",
   routes: routes,
   scrollBehavior(to, from) {
     if (to.hash && to.hash.length > 0) {
