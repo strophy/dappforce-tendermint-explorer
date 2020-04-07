@@ -89,8 +89,7 @@ export default {
           text: hash,
           to: { name: "tx", params: { hash } }
         }
-        return Object.assign({ txHash }, txObj)
-    */  
+        return Object.assign({ txHash }, txObj) 
     },
   },
   data: () => ({
