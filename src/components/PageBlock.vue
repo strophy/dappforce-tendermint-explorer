@@ -80,6 +80,8 @@ export default {
       return this.nextHeight <= this.totalBlocks
     },
     decodedTxs () {
+      return []
+    /*
       return this.block.data.txs.map((tx, i) => {
         let txObj = decodeTx(tx)
         let hash = this.txHash(i)
@@ -91,6 +93,7 @@ export default {
         }
         return Object.assign({ txHash }, txObj)
       })
+    */  
     },
   },
   data: () => ({
