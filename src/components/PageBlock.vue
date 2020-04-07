@@ -80,10 +80,8 @@ export default {
       return this.nextHeight <= this.totalBlocks
     },
     decodedTxs () {
-      return []
-    /*
       return this.block.data.txs.map((tx, i) => {
-        let txObj = decodeTx(tx)
+        let txObj = decodeST(tx)
         let hash = this.txHash(i)
         let txHash = {
           isRouterLink: true,
@@ -92,7 +90,6 @@ export default {
           to: { name: "tx", params: { hash } }
         }
         return Object.assign({ txHash }, txObj)
-      })
     */  
     },
   },
