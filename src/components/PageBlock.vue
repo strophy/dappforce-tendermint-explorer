@@ -83,6 +83,7 @@ export default {
       return this.block.data.txs.map((tx, i) => {
         console.log('tx:',tx)
         console.log(tx)
+        tx = removeTxPadding(removeTxPadding(tx))
         let ab = Base64Binary.decodeArrayBuffer(tx)
         console.log('ab:',ab)
         let txObj = CBOR.decode(ab)
