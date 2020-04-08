@@ -82,6 +82,7 @@ export default {
     decodedTxs () {
       return this.block.data.txs.map((tx, i) => {
         console.log('tx:',tx)
+        console.log(tx)
         let ab = Base64Binary.decodeArrayBuffer(tx)
         console.log('ab:',ab)
         let txObj = CBOR.decode(ab)
