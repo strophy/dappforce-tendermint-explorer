@@ -81,7 +81,10 @@ export default {
     },
     decodedTxs () {
       return this.block.data.txs.map((tx, i) => {
-        let txObj = CBOR.decode(Base64Binary.decodeArrayBuffer(tx))
+        console.log('tx:',tx)
+        let ab = Base64Binary.decodeArrayBuffer(tx)
+        console.log('ab:',ab)
+        let txObj = CBOR.decode(ab)
         let hash = this.txHash(i)
         let txHash = {
           isRouterLink: true,
