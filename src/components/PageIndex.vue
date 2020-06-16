@@ -1,7 +1,7 @@
 <template lang="pug">
-tm-page(title='Testnet Explorer')
-  tm-part(title='Testnet Data')
-    tm-list-item(dt='Testnet Version' :dd='bc.status.node_info.network')
+tm-page(title='Dash Platform Explorer')
+  tm-part(title='Evonet Data')
+    tm-list-item(dt='Platform Chain Version' :dd='bc.status.node_info.network')
     // tm-list-item(dt='Tendermint Version' :dd='bc.status.node_info.version')
     tm-list-item(dt='Status' :dd='validatorsActive' :href="`${bc.rpc}/consensus_state`" target="_blank")
     tm-list-item(dt='Prevote State' :dd='prevotes')

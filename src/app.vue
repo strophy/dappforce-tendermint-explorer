@@ -3,9 +3,9 @@
   tm-cookie-consent
   tm-modal-error(
     v-if="nodes.length === 0"
-    title="Tendermint Explorer is offline."
-    body="The current testnet is offline. The next testnet will be launching soon. Follow us on Twitter to get notified when the next testnet starts."
-    btn-icon="forum" btn-value="GitHub repository" btn-url="https://github.com/dappforce/tendermint-explorer")
+    title="Dash Platform Explorer is offline."
+    body="Evonet is currently offline. "
+    btn-icon="forum" btn-value="Support" btn-url="https://discuss.dashdevs.org/")
   app-header
   #app-content
     router-view
