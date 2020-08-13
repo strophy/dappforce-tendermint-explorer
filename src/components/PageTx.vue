@@ -49,7 +49,15 @@ export default {
       let { tx, height } = this
       if (!tx) return
 
-      let txObj = decodeTx(tx)
+      // cw changes
+      //let txObj = decodeTx(tx)
+      tx = removeTxPadding(removeTxPadding(tx))
+        let ab = Base64Binary.decodeArrayBuffer(tx)
+        console.log('ab:',ab)
+        console.log(`this.txHash: ${this.txHash}`) 
+        let txObj = CBOR.decode(ab)
+      
+      
       let txHash = this.hash
       let block = {
         isRouterLink: true,
@@ -69,9 +77,26 @@ export default {
   methods: {
     async fetchTx() {
       this.jsonUrl = `${this.blockchain.rpc}/tx?hash=0x${this.hash}`
+      console.log(`json url to search TX PAGE : ${this.jsonUrl}`)
+      console.log(`this tx hash: ${this.hash}`)
+      console.log(`this.blockchain.rpc: ${this.blockchain.rpc}`)
+      //this.jsonUrl = `${this.blockchain.rpc}/tx_search?query=\"tx.hash='${this.hash}'\"`
+      
+      //cloudwheels - TODO: CHANGE FIXED VALUE
+      //this.jsonUrl = `https://rpc.cloudwheels.net:26657/tx_search?query=\"tx.hash='${this.hash}'\"`
+      //console.log(`json url to search : ${this.jsonUrl}`)
       let json = await axios.get(this.jsonUrl)
+      console.dir(json)
+      //cloudwheels - change to index [0] of a tx search reasult by hash, tx page not working???
       this.height = json.data.result.height
       this.tx = json.data.result.tx
+      
+
+      //console.log(`json.data.result.txs[0] : ${JSON.stringify(json.data.result.txs[0])}`); 
+      //this.height = json.data.result.txs[0].height
+
+      //this.tx = json.data.result.txs[0].tx
+      //console.log(`tx to be decoded : ${this.tx}`);
     },
   },
   async mounted() {

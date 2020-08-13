@@ -86,6 +86,7 @@ export default {
         tx = removeTxPadding(removeTxPadding(tx))
         let ab = Base64Binary.decodeArrayBuffer(tx)
         console.log('ab:',ab)
+        console.log(`this.txHash: ${this.txHash}`) 
         let txObj = CBOR.decode(ab)
         let hash = this.txHash(i)
         let txHash = {
@@ -151,11 +152,18 @@ export default {
   }),
   methods: {
     txHash (idx) {
+      console.log(`creating hash of txb at idx ${idx}`)
       let tx = this.block.data.txs[idx]
+      console.log(`tx ${tx}`)
       let b64str = tx.replace(/^:base64:/, '')
       let buffer = Buffer.from(b64str, 'base64')
       let hex = createHash('sha256').update(buffer).digest('hex')
-      return hex.substr(0, 40).toUpperCase()
+      console.log(`**full hex*** ${hex}`)
+      console.log(`**returning substr (40)*** ${hex.substr(0, 40).toUpperCase()}`)
+      //return hex.substr(0, 40).toUpperCase()
+      //Cloudwheels - return full hex string
+      return hex.toUpperCase()
+
     },
     async fetchBlock() {
       this.jsonUrl = `${this.blockchain.rpc}/block?height=${this.$route.params.block}`
