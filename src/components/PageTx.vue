@@ -20,9 +20,10 @@ tm-page(:title="`Transaction ${hash}`")
 <script>
 import { mapGetters } from "vuex"
 import axios from "axios"
-import { decodeTx } from "../scripts/tx"
+import { removeTxPadding, Base64Binary } from "../scripts/tx"
 import PartTxData from './PartTxData'
 import { TmListItem, TmPage, TmPart, TmToolBar } from "@tendermint/ui"
+import { decode } from "cbor"
 
 export default {
   name: "page-block",
@@ -55,7 +56,7 @@ export default {
         let ab = Base64Binary.decodeArrayBuffer(tx)
         console.log('ab:',ab)
         console.log(`this.txHash: ${this.txHash}`) 
-        let txObj = CBOR.decode(ab)
+        let txObj = decode(ab)
       
       
       let txHash = this.hash

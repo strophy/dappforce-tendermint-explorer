@@ -62,9 +62,10 @@ import axios from "axios"
 import createHash from "create-hash"
 import varint from "varint"
 import b64 from "base64-js"
-import { decodeBase64, decodeTx } from "../scripts/tx"
+import { decodeBase64, removeTxPadding, Base64Binary } from "../scripts/tx"
 import PartTxData from "./PartTxData"
 import { TmListItem, TmPage, TmPart, TmToolBar } from "@tendermint/ui"
+import { decode } from "cbor"
 
 export default {
   name: "page-block",
@@ -92,12 +93,13 @@ export default {
     decodedTxs() {
       return this.block.data.txs.map((tx, i) => {
         console.log("tx:", tx)
-        console.log(tx)
+        console.log(tx)      
+
         tx = removeTxPadding(removeTxPadding(tx))
         let ab = Base64Binary.decodeArrayBuffer(tx)
         console.log("ab:", ab)
         console.log(`this.txHash: ${this.txHash}`)
-        let txObj = CBOR.decode(ab)
+        let txObj = decode(ab)
         console.log("txObj:")
         console.dir(txObj)
         const iterate = (obj) => {
