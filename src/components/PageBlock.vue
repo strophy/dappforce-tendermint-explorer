@@ -66,6 +66,8 @@ import { decodeBase64, removeTxPadding, Base64Binary } from "../scripts/tx"
 import PartTxData from "./PartTxData"
 import { TmListItem, TmPage, TmPart, TmToolBar } from "@tendermint/ui"
 import { decode } from "cbor"
+import * as DPP from "@dashevo/dpp"
+import * as bs58 from "bs58"
 
 export default {
   name: "page-block",
@@ -110,11 +112,15 @@ export default {
               console.log('convert binary value')
               let buf = new Buffer(obj[key])
               let uint32array = new Uint32Array(buf);
-              let strVal =  buf.toString() // ?? encoding
-              console.log("string value:", strVal);
+              //let strVal =  buf.toString() // ?? encoding
+              //console.log("string value:", strVal);
               //replace value
-              obj[key] = `BINARY VALUE (uint32 array): [${uint32array.toString()}]` //strVal;
+              //obj[key] = `BINARY VALUE (uint32 array): [${uint32array.toString()}]` //strVal;
+               obj[key] = bs58.encode(buf)
+
+              //console.log("BS58 enc ", bs58.encode(buf) )
             }
+
             else if(typeof obj[key] === "object") {
               //object but not Uint8Array -> transverse
               iterate(obj[key])
