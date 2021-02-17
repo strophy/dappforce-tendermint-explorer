@@ -203,6 +203,11 @@ export default {
       let json = await axios.get(this.jsonUrl)
       this.block = json.data.result.block
       this.block.header.height = parseInt(this.block.header.height)
+      this.block.header.num_txs = this.block.data.txs.length
+      console.log('block header:')
+      console.dir(this.block.header)
+      console.log('block data:')
+      console.dir(this.block.data)
     },
 
     // TODO deprecate? (yes)

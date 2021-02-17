@@ -1,18 +1,22 @@
-FROM node:latest
+FROM node:lts-alpine
 
-# Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+# install simple http server for serving static content
+RUN npm install -g http-server
 
-# Install app dependencies
-COPY package.json /usr/src/app/
-COPY yarn.lock /usr/src/app/
-RUN yarn
+# make the 'app' folder the current working directory
+WORKDIR /app
 
-# Bundle app source
-COPY . /usr/src/app
+# copy both 'package.json' and 'package-lock.json' (if available)
+COPY package*.json ./
 
-RUN yarn build
+# install project dependencies
+RUN npm install
+
+# copy project files and folders to the current working directory (i.e. 'app' folder)
+COPY . .
+
+# build app for production with minification
+RUN npm run build
 
 EXPOSE 8080
-CMD [ "yarn", "start" ]
+CMD [ "http-server", "dist" ]
