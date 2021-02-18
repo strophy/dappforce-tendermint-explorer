@@ -7,6 +7,7 @@
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
+    "build-ghpages": "cp .env.cloudwheels .env && vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
