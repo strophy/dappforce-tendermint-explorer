@@ -13,3 +13,8 @@ deploy:
  local_dir: dist
  on:
    branch: cloudwheels-dev
+
+env:
+  - VUE_APP_TENDERDASH_EXPLORER_SECURE=TRUE
+  - VUE_APP_TENDERDASH_EXPLORER_HOST=rpc.cloudwheels.net
+  - VUE_APP_TENDERDASH_EXPLORER_PORT=26657
