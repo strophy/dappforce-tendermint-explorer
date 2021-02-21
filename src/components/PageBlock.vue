@@ -62,9 +62,11 @@ import axios from "axios"
 import createHash from "create-hash"
 import varint from "varint"
 import b64 from "base64-js"
-import { decodeBase64, decodeTx } from "../scripts/tx"
+import { decodeBase64, removeTxPadding, Base64Binary } from "../scripts/tx"
 import PartTxData from "./PartTxData"
 import { TmListItem, TmPage, TmPart, TmToolBar } from "@tendermint/ui"
+import { decode } from "cbor"
+import * as bs58 from "bs58"
 
 export default {
   name: "page-block",
@@ -92,12 +94,13 @@ export default {
     decodedTxs() {
       return this.block.data.txs.map((tx, i) => {
         console.log("tx:", tx)
-        console.log(tx)
+        console.log(tx)      
+
         tx = removeTxPadding(removeTxPadding(tx))
         let ab = Base64Binary.decodeArrayBuffer(tx)
         console.log("ab:", ab)
         console.log(`this.txHash: ${this.txHash}`)
-        let txObj = CBOR.decode(ab)
+        let txObj = decode(ab)
         console.log("txObj:")
         console.dir(txObj)
         const iterate = (obj) => {
@@ -107,12 +110,16 @@ export default {
             if (typeAsString === '[object Uint8Array]'){
               console.log('convert binary value')
               let buf = new Buffer(obj[key])
-              let uint32array = new Uint32Array(buf);
-              let strVal =  buf.toString() // ?? encoding
-              console.log("string value:", strVal);
+              //let uint32array = new Uint32Array(buf);
+              //let strVal =  buf.toString() // ?? encoding
+              //console.log("string value:", strVal);
               //replace value
-              obj[key] = `BINARY VALUE (uint32 array): [${uint32array.toString()}]` //strVal;
+              //obj[key] = `BINARY VALUE (uint32 array): [${uint32array.toString()}]` //strVal;
+               obj[key] = bs58.encode(buf)
+
+              //console.log("BS58 enc ", bs58.encode(buf) )
             }
+
             else if(typeof obj[key] === "object") {
               //object but not Uint8Array -> transverse
               iterate(obj[key])
@@ -203,6 +210,11 @@ export default {
       let json = await axios.get(this.jsonUrl)
       this.block = json.data.result.block
       this.block.header.height = parseInt(this.block.header.height)
+      this.block.header.num_txs = this.block.data.txs.length
+      console.log('block header:')
+      console.dir(this.block.header)
+      console.log('block data:')
+      console.dir(this.block.data)
     },
 
     // TODO deprecate? (yes)
