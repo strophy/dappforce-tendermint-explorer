@@ -15,6 +15,9 @@ RUN npm install
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 
+# copy env file to use docker compose network (for mn-bootstrap)
+COPY .env.mn-bootstrap .env
+
 # build app for production with minification
 RUN npm run build
 
