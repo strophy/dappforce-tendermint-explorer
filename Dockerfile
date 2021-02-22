@@ -1,14 +1,18 @@
 FROM node:12-alpine
 
-# install simple http server for serving static content
+# Create app directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# Install web server
 RUN npm install -g http-server
 
 # Install app dependencies
 COPY package*.json /usr/src/app/
 RUN npm install
 
-# copy both 'package.json' and 'package-lock.json' (if available)
-COPY package*.json ./
+# Bundle app source
+COPY . /usr/src/app
 
 # Install dependencies
 RUN npm run build

@@ -2,17 +2,9 @@ import axios from "axios"
 import { RpcClient } from "tendermint"
 
 //TODO use getters/setters
-const htProtocol = (process.env.VUE_APP_TENDERDASH_EXPLORER_HT_PROTOCOL) 
-const wsProtocol = (process.env.VUE_APP_TENDERDASH_EXPLORER_WS_PROTOCOL)
-console.log("ht protocol:", htProtocol)
-console.log("ws protocol:", wsProtocol)
-const host = process.env.VUE_APP_TENDERDASH_EXPLORER_HOST
-console.log("host:", host)
-const port = process.env.VUE_APP_TENDERDASH_EXPLORER_PORT
-console.log("port:", port)
 const state = {
-  rpc: `${htProtocol}://${process.env.VUE_APP_TENDERDASH_EXPLORER_HOST}:${process.env.VUE_APP_TENDERDASH_EXPLORER_PORT}`,
-
+  rpc: "http://testnet-452625393.us-west-2.elb.amazonaws.com:26657",
+  
   status: {
     listen_addr: "",
     sync_info: {
@@ -33,7 +25,7 @@ const state = {
   roundStep: ""
 }
 
-const client = RpcClient(`${wsProtocol}://${host}:${port}`,)
+const client = RpcClient("ws://testnet-452625393.us-west-2.elb.amazonaws.com:26657")
 
 const actions = {
   subNewBlock({ commit, dispatch }) {
